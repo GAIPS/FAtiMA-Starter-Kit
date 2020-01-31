@@ -1,0 +1,294 @@
+{
+	"root":
+		{
+			"classId": 0,
+			"ScenarioName": "Counseling",
+			"Description": "Giving advice towards work stress relieve.",
+			"Dialogues": [
+				{
+					"CurrentState": "S1",
+					"NextState": "S2",
+					"Meaning": "Neutral",
+					"Style": "-",
+					"Utterance": "I am feeling fine, but go on with your advice.",
+					"UtteranceId": "TTS-48978E686E424F43F617D065F629C892"
+				}, 
+				{
+					"CurrentState": "Start",
+					"NextState": "S1",
+					"Meaning": "Neutral",
+					"Style": "-",
+					"Utterance": "Hello there. I am here to give you some advices. How do you feel?",
+					"UtteranceId": "TTS-0AB9DBFE2F48E1C11959D64C1E16966F"
+				}, 
+				{
+					"CurrentState": "Visualization",
+					"NextState": "S4",
+					"Meaning": "Neutral",
+					"Style": "-",
+					"Utterance": "Close your eyes and imagine your restful place. Picture it as vividly as you can: everything you see, hear, smell, taste, and feel. Just “looking” at it in your mind’s eye like you would a photograph is not enough. Visualization works best if you incorporate as many sensory details as possible. Enjoy the feeling of your worries drifting away as you slowly explore your restful place. When you are ready, gently open your eyes and come back to the present. Don’t worry if you sometimes zone out or lose track of where you are during a visualization session. This is normal. You may also experience feelings of heaviness in your limbs, muscle twitches, or yawning. Again, these are normal responses.",
+					"UtteranceId": "TTS-D8F3AA800EBF4C3D3AACCB32710F3FA1"
+				}, 
+				{
+					"CurrentState": "FeelingGreat",
+					"NextState": "S6",
+					"Meaning": "Neutral",
+					"Style": "-",
+					"Utterance": "Oh thank god!",
+					"UtteranceId": "TTS-A112F1A6A1C6F499EB83AC65CFBC61F2"
+				}, 
+				{
+					"CurrentState": "Breath",
+					"NextState": "S4",
+					"Meaning": "Neutral",
+					"Style": "-",
+					"Utterance": "Sit comfortably with your back straight. Put one hand on your chest and the other on your stomach. Breathe in through your nose. The hand on your stomach should rise. The hand on your chest should move very little. Exhale through your mouth, pushing out as much air as you can while contracting your abdominal muscles. The hand on your stomach should move in as you exhale, but your other hand should move very little. Continue to breathe in through your nose and out through your mouth. Try to inhale enough so that your lower abdomen rises and falls. Count slowly as you exhale.",
+					"UtteranceId": "TTS-AFDBECF9751EB373B1670FB1AC9A754D"
+				}, 
+				{
+					"CurrentState": "S1",
+					"NextState": "S2",
+					"Meaning": "Neutral",
+					"Style": "-",
+					"Utterance": "I'm feeling ok. ",
+					"UtteranceId": "TTS-15EAD1CF4D910F6B112F5BF5DEC27EB7"
+				}, 
+				{
+					"CurrentState": "Sad",
+					"NextState": "S2",
+					"Meaning": "Neutral",
+					"Style": "-",
+					"Utterance": "I'm feeling pretty bad aswell",
+					"UtteranceId": "TTS-1AE6C0BC6D52FA7B7918E32948E30326"
+				}, 
+				{
+					"CurrentState": "S4",
+					"NextState": "Back",
+					"Meaning": "Neutral",
+					"Style": "-",
+					"Utterance": "I wish to return to main menu.",
+					"UtteranceId": "TTS-1F20DA2B8E746143AF47C9522CC5AE0F"
+				}, 
+				{
+					"CurrentState": "S5",
+					"NextState": "S6",
+					"Meaning": "Neutral",
+					"Style": "-",
+					"Utterance": "So? Can you tell me some details?",
+					"UtteranceId": "TTS-22DAA49EE24F3E21D02D8DA5B62DBB0E"
+				}, 
+				{
+					"CurrentState": "S6",
+					"NextState": "S7",
+					"Meaning": "Neutral",
+					"Style": "-",
+					"Utterance": "I am afraid I can't. I am sorry.",
+					"UtteranceId": "TTS-526DB24FF535DCDC07A7A4363B85A9A5"
+				}, 
+				{
+					"CurrentState": "S3",
+					"NextState": "Visualization",
+					"Meaning": "Neutral",
+					"Style": "-",
+					"Utterance": "Visualization",
+					"UtteranceId": "TTS-5CB21F7C94235E860596A2DFD90CCF82"
+				}, 
+				{
+					"CurrentState": "S3",
+					"NextState": "MR",
+					"Meaning": "Neutral",
+					"Style": "-",
+					"Utterance": "Muscle relaxation",
+					"UtteranceId": "TTS-32780B7C04540E47DFD6C6C288BFBF35"
+				}, 
+				{
+					"CurrentState": "S4",
+					"NextState": "Relieve",
+					"Meaning": "Neutral",
+					"Style": "-",
+					"Utterance": "Which are the best practices to manage work stress?",
+					"UtteranceId": "TTS-040657B4C8436067AAA695F6F595AAE1"
+				}, 
+				{
+					"CurrentState": "S4",
+					"NextState": "S2",
+					"Meaning": "Neutral",
+					"Style": "-",
+					"Utterance": "I wish information for the other techiques.",
+					"UtteranceId": "TTS-39F91BA8B4ED0F8B642B897DC1BB2B31"
+				}, 
+				{
+					"CurrentState": "Back",
+					"NextState": "-",
+					"Meaning": "Neutral",
+					"Style": "-",
+					"Utterance": "I hope we managed to relieve your stress. ",
+					"UtteranceId": "TTS-9814086F965FC33651CE69614F12A903"
+				}, 
+				{
+					"CurrentState": "Relieve",
+					"NextState": "Thank",
+					"Meaning": "Neutral",
+					"Style": "-",
+					"Utterance": "You should remember the following as good practices to avoid work stress. You should always be clear on requirements. If you find yourself falling into the trap of never knowing if what you’re doing is enough, it may help to have a talk with your supervisor and go over expectations, and strategies for meeting them. Stay organized, comfortable and confident about your position and role. Moreover, you should stay away from conflict and try to avoid perfectionist targets as much as multitargets that may increase the pressure on you without clear reason. Try to remember that work is not  life. Life is a bigger concept than either of us can accept or perceive. Try to remember to embrace this gift and protect it.",
+					"UtteranceId": "TTS-A95A1216B80339909E98DD3AE2DE0EE8"
+				}, 
+				{
+					"CurrentState": "Thank",
+					"NextState": "Back",
+					"Meaning": "Neutral",
+					"Style": "-",
+					"Utterance": "Thank you very much!",
+					"UtteranceId": "TTS-3994660A37ED3790FFCBEB0BAF73CB17"
+				}, 
+				{
+					"CurrentState": "S1",
+					"NextState": "S2",
+					"Meaning": "Neutral",
+					"Style": "-",
+					"Utterance": "I am feeling really stressed.",
+					"UtteranceId": "TTS-AB1712979CECC3D6DC57433EB1934768"
+				}, 
+				{
+					"CurrentState": "MR",
+					"NextState": "S4",
+					"Meaning": "Neutral",
+					"Style": "-",
+					"Utterance": "Start at your feet and work your way up to your face, trying to only tense those muscles intended. Loosen clothing, take off your shoes, and get comfortable. Take a few minutes to breathe in and out in slow, deep breaths. When you’re ready, shift your attention to your right foot. Take a moment to focus on the way it feels. Slowly tense the muscles in your right foot, squeezing as tightly as you can. Hold for a count of 10. Relax your foot. Focus on the tension flowing away and how your foot feels as it becomes limp and loose. Stay in this relaxed state for a moment, breathing deeply and slowly. Shift your attention to your left foot. Follow the same sequence of muscle tension and release. Move slowly up through your body, contracting and relaxing the different muscle groups.     It may take some practice at first, but try not to tense muscles other than those intended.",
+					"UtteranceId": "TTS-114B72868722DCA47DADA2EB9805FA73"
+				}, 
+				{
+					"CurrentState": "S2",
+					"NextState": "S3",
+					"Meaning": "Neutral",
+					"Style": "-",
+					"Utterance": "There are various techiques to reduce stress level. You can see the options, please select one. Try to forget all thoughts that make you anxious. Our purpose is to relieve you from all these things.",
+					"UtteranceId": "TTS-304E95FBFF9D9CAB117344E36FEF3735"
+				}, 
+				{
+					"CurrentState": "S3",
+					"NextState": "Breath",
+					"Meaning": "Neutral",
+					"Style": "-",
+					"Utterance": "Breath techniques",
+					"UtteranceId": "TTS-35E59BB6DBD9367B50CEC5C3BC8D3734"
+				}],
+			"Characters": [
+				{
+					"KnowledgeBase":
+						{
+							"Perspective": "Charlie",
+							"Knowledge":
+								{
+									"SELF":
+										{
+											"Has(Floor)": "Charlie, 1",
+											"DialogueState(Player)": "Start, 1"
+										}
+								}
+						},
+					"BodyName": "Male",
+					"VoiceName": "Male",
+					"EmotionalState":
+						{
+							"Mood": 0,
+							"initialTick": 0,
+							"EmotionalPool": [],
+							"AppraisalConfiguration":
+								{
+									"HalfLifeDecayConstant": 0.5,
+									"EmotionInfluenceOnMoodFactor": 0.3,
+									"MoodInfluenceOnEmotionFactor": 0.3,
+									"MinimumMoodValueForInfluencingEmotions": 0.5,
+									"EmotionalHalfLifeDecayTime": 15,
+									"MoodHalfLifeDecayTime": 60
+								}
+						},
+					"AutobiographicMemory":
+						{
+							"Tick": 0,
+							"records": []
+						},
+					"OtherAgents":
+						{
+							"dictionary": []
+						},
+					"Goals": []
+				}, 
+				{
+					"KnowledgeBase":
+						{
+							"Perspective": "Player",
+							"Knowledge":
+								{
+									"SELF":
+										{
+											"Has(Floor)": "Charlie, 1",
+											"DialogueState(Charlie)": "Start, 1"
+										}
+								}
+						},
+					"BodyName": null,
+					"VoiceName": null,
+					"EmotionalState":
+						{
+							"Mood": 0,
+							"initialTick": 0,
+							"EmotionalPool": [],
+							"AppraisalConfiguration":
+								{
+									"HalfLifeDecayConstant": 0.5,
+									"EmotionInfluenceOnMoodFactor": 0.3,
+									"MoodInfluenceOnEmotionFactor": 0.3,
+									"MinimumMoodValueForInfluencingEmotions": 0.5,
+									"EmotionalHalfLifeDecayTime": 15,
+									"MoodHalfLifeDecayTime": 60
+								}
+						},
+					"AutobiographicMemory":
+						{
+							"Tick": 0,
+							"records": []
+						},
+					"OtherAgents":
+						{
+							"dictionary": []
+						},
+					"Goals": []
+				}],
+			"WorldModel":
+				{
+					"Effects":
+						{
+							"dictionary": [
+								{
+									"key": "Event(Action-End, [s], Speak(*, [ns], *, *), [t])",
+									"value": [
+										{
+											"PropertyName": "DialogueState([s])",
+											"NewValue": "[ns]",
+											"ObserverAgent": "[t]"
+										}, 
+										{
+											"PropertyName": "Has(Floor)",
+											"NewValue": "[t]",
+											"ObserverAgent": "*"
+										}]
+								}]
+						},
+					"Priorities":
+						{
+							"dictionary": [
+								{
+									"key": "Event(Action-End, [s], Speak(*, [ns], *, *), [t])",
+									"value": 1
+								}]
+						}
+				}
+		},
+	"types": [
+		{
+			"TypeId": 0,
+			"ClassName": "IntegratedAuthoringTool.IntegratedAuthoringToolAsset, IntegratedAuthoringTool, Version=1.7.0.0, Culture=neutral, PublicKeyToken=null"
+		}]
+}

@@ -1,0 +1,48 @@
+{
+	"root":
+		{
+			"classId": 0,
+			"ScenarioName": "Pepe Silvia",
+			"Description": "This is a scenario that describes an Always SUnny scene",
+			"WorldModelSource": "WorldModel.wmo",
+			"CharacterSources": ["Mac.rpc", "Char.rpc"],
+			"Dialogues": [
+				{
+					"CurrentState": "Start",
+					"NextState": "S1",
+					"Meaning": "-",
+					"Style": "-",
+					"Utterance": "Dude what happened",
+					"UtteranceId": "TTS-176DC86E5BE9CB7D639EC45EB75E7547"
+				}, 
+				{
+					"CurrentState": "S1",
+					"NextState": "S2",
+					"Meaning": "-",
+					"Style": "-",
+					"Utterance": "There's a major company conspiracy dude",
+					"UtteranceId": "TTS-091F5850FCF13901A4594DCAA8E1A322"
+				}, 
+				{
+					"CurrentState": "Start",
+					"NextState": "S1",
+					"Meaning": "-",
+					"Style": "Rude",
+					"Utterance": "Stupid what happened",
+					"UtteranceId": "TTS-BAC91384EC652778754EC7EE38E2B353"
+				}, 
+				{
+					"CurrentState": "S1",
+					"NextState": "S2",
+					"Meaning": "-",
+					"Style": "Rude",
+					"Utterance": "There's a major company conspiracy dude",
+					"UtteranceId": "TTS-091F5850FCF13901A4594DCAA8E1A322"
+				}]
+		},
+	"types": [
+		{
+			"TypeId": 0,
+			"ClassName": "IntegratedAuthoringTool.IntegratedAuthoringToolAsset, IntegratedAuthoringTool, Version=1.7.0.0, Culture=neutral, PublicKeyToken=null"
+		}]
+}

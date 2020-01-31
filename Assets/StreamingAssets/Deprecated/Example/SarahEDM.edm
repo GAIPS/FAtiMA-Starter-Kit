@@ -1,0 +1,32 @@
+{
+	"root":
+		{
+			"classId": 0,
+			"ActionTendencies": [
+				{
+					"Action": "Hit",
+					"Target": "[x]",
+					"Layer": "-",
+					"Conditions":
+						{
+							"Set": ["Likes([x]) < -5"]
+						},
+					"Priority": 1
+				}, 
+				{
+					"Action": "Speak([cs], *, *, *)",
+					"Target": "John",
+					"Layer": "-",
+					"Conditions":
+						{
+							"Set": ["Start = [cs]"]
+						},
+					"Priority": 1
+				}]
+		},
+	"types": [
+		{
+			"TypeId": 0,
+			"ClassName": "EmotionalDecisionMaking.EmotionalDecisionMakingAsset, EmotionalDecisionMaking, Version=1.2.0.0, Culture=neutral, PublicKeyToken=null"
+		}]
+}
