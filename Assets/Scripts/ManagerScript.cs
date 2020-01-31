@@ -46,7 +46,7 @@ public class ManagerScript : MonoBehaviour
 
         // Loading Storage json with the Rules, files must be in the Streaming Assets Folder
 
-        var storagePath = Application.streamingAssetsPath + "/John/storage.json";
+        var storagePath = Application.streamingAssetsPath + "/SingleCharacterV4.0/storage.json";
 
         // Making sure it works on Android and Web-GL
         UnityEngine.Networking.UnityWebRequest www = UnityEngine.Networking.UnityWebRequest.Get(storagePath);
@@ -62,7 +62,7 @@ public class ManagerScript : MonoBehaviour
         
      
         //Loading Scenario information with data regarding characters and dialogue
-        var iatPath = Application.streamingAssetsPath + "/John/couns.json";
+        var iatPath = Application.streamingAssetsPath + "/SingleCharacterV4.0/scenario.json";
 
         //I have to do the same I just did before
         // Making sure it works on Android and Web-GL
