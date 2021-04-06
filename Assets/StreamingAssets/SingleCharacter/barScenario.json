@@ -1,0 +1,151 @@
+{
+	"root":
+		{
+			"classId": 2,
+			"ScenarioName": "Bar",
+			"Description": "Whatever but at a bar",
+			"Dialogues": [
+				{
+					"CurrentState": "Start",
+					"NextState": "Opening",
+					"Meaning": "-",
+					"Style": "-",
+					"Utterance": "Hello there",
+					"UtteranceId": "TTS-C6F7C372641DD25E0FDDF0215375561F"
+				}, 
+				{
+					"CurrentState": "Opening",
+					"NextState": "End",
+					"Meaning": "-",
+					"Style": "-",
+					"Utterance": "General Kenobi",
+					"UtteranceId": "TTS-715AF9065AF0E74180DDFDB562EC85A1"
+				}],
+			"Characters": [
+				{
+					"KnowledgeBase":
+						{
+							"Perspective": "Sarah",
+							"Knowledge":
+								{
+									"SELF":
+										{
+											"Likes(Flower)": "True, 1",
+											"Likes(Chocolate)": "True, 1",
+											"Money(Euros)": "5, 1",
+											"Loves(John)": "yep, 1"
+										}
+								}
+						},
+					"BodyName": null,
+					"VoiceName": "Female",
+					"EmotionalState":
+						{
+							"Mood": 1,
+							"initialTick": 0,
+							"EmotionalPool": [],
+							"AppraisalConfiguration":
+								{
+									"HalfLifeDecayConstant": 0.5,
+									"EmotionInfluenceOnMoodFactor": 0.3,
+									"MoodInfluenceOnEmotionFactor": 0.3,
+									"MinimumMoodValueForInfluencingEmotions": 0.5,
+									"EmotionalHalfLifeDecayTime": 15,
+									"MoodHalfLifeDecayTime": 60
+								}
+						},
+					"AutobiographicMemory":
+						{
+							"Tick": 5,
+							"records": [
+								{
+									"classId": 0,
+									"Id": 0,
+									"Type": "Action-End",
+									"Subject": "Sarah",
+									"Timestamp": 0,
+									"Action": "Give(Money)",
+									"Target": "Peter"
+								}, 
+								{
+									"classId": 1,
+									"Id": 1,
+									"Type": "Property-Change",
+									"Subject": "Sarah",
+									"Timestamp": 0,
+									"Property": "Is(Weather)",
+									"NewValue": "Raining"
+								}]
+						},
+					"OtherAgents":
+						{
+							"dictionary": []
+						},
+					"Goals": []
+				}, 
+				{
+					"KnowledgeBase":
+						{
+							"Perspective": "Peter",
+							"Knowledge":
+								{
+									"SELF":
+										{
+											"Likes(Chocolate)": "True, 1"
+										}
+								}
+						},
+					"BodyName": null,
+					"VoiceName": "Female",
+					"EmotionalState":
+						{
+							"Mood": 0,
+							"initialTick": 0,
+							"EmotionalPool": [],
+							"AppraisalConfiguration":
+								{
+									"HalfLifeDecayConstant": 0.5,
+									"EmotionInfluenceOnMoodFactor": 0.3,
+									"MoodInfluenceOnEmotionFactor": 0.3,
+									"MinimumMoodValueForInfluencingEmotions": 0.5,
+									"EmotionalHalfLifeDecayTime": 15,
+									"MoodHalfLifeDecayTime": 60
+								}
+						},
+					"AutobiographicMemory":
+						{
+							"Tick": 0,
+							"records": []
+						},
+					"OtherAgents":
+						{
+							"dictionary": []
+						},
+					"Goals": []
+				}],
+			"WorldModel":
+				{
+					"Effects":
+						{
+							"dictionary": []
+						},
+					"Priorities":
+						{
+							"dictionary": []
+						}
+				}
+		},
+	"types": [
+		{
+			"TypeId": 0,
+			"ClassName": "AutobiographicMemory.AM+ActionEvent, AutobiographicMemory, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"
+		}, 
+		{
+			"TypeId": 1,
+			"ClassName": "AutobiographicMemory.AM+PropertyChangeEvent, AutobiographicMemory, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"
+		}, 
+		{
+			"TypeId": 2,
+			"ClassName": "IntegratedAuthoringTool.IntegratedAuthoringToolAsset, IntegratedAuthoringTool, Version=1.7.0.0, Culture=neutral, PublicKeyToken=null"
+		}]
+}

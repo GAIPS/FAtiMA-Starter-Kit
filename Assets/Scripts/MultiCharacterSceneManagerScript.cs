@@ -17,6 +17,7 @@ using Utilities;
 using WellFormedNames;
 using WorldModel;
 using GAIPS.Rage;
+using System.Net;
 
 
 
@@ -61,22 +62,48 @@ public class MultiCharacterSceneManagerScript : MonoBehaviour
     private bool initialized = false;
 
     // If there is no text to speech leave at false
+
     public bool useTextToSpeech;
 
 
     public List<GameObject> CharacterBodies;
 
-
+ 
     // Use this for initialization
     void Start()
     {
         // Loading Storage json with the Rules, files must be in the Streaming Assets Folder
-        var storagetPath = Application.streamingAssetsPath + "/MultiCharacterv4.0/multicharstorage.json";
-        var storage = AssetStorage.FromJson(File.ReadAllText(storagetPath));
+        var storagePath = Application.streamingAssetsPath + "/MultiCharacter/multicharstorage.json";
+
+        // Making sure it works on Android and Web-GL
+        UnityEngine.Networking.UnityWebRequest www = UnityEngine.Networking.UnityWebRequest.Get(storagePath);
+        www.SendWebRequest();
+
+        while (!www.isDone)
+        {
+
+        }
+
+        String jsonString = www.downloadHandler.text;
+        var storage = AssetStorage.FromJson(jsonString);
 
         //Loading Scenario information with data regarding characters and dialogue
-        var iatPath = Application.streamingAssetsPath + "/MultiCharacterv4.0/scenario.json";
-        _iat = IntegratedAuthoringToolAsset.FromJson(File.ReadAllText(iatPath), storage);
+        var iatPath = Application.streamingAssetsPath + "/MultiCharacter/scenario.json";
+
+        //I have to do the same I just did before
+        // Making sure it works on Android and Web-GL
+        www = UnityEngine.Networking.UnityWebRequest.Get(iatPath);
+        www.SendWebRequest();
+
+        while (!www.isDone)
+        {
+
+        }
+
+        jsonString = www.downloadHandler.text;
+
+        // Now that I have gotten the string for sure I can load the IAT
+        _iat = IntegratedAuthoringToolAsset.FromJson(jsonString, storage);
 
 
         var currentState = IATConsts.INITIAL_DIALOGUE_STATE;

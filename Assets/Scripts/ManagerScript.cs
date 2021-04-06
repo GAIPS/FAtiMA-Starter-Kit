@@ -44,9 +44,19 @@ public class ManagerScript : MonoBehaviour
     void Start()
     {
 
+#if UNITY_EDITOR && UNITY_WEBGL
+
+        Debug.Log("Web-GL");
+
+        String storageString = "[\"EmotionalAppraisalAsset\",{\"root\":{\"classId\":0,\"Description\":null,\"AppraisalRules\":{\"AppraisalWeight\":1,\"Rules\":[{\"EventName\":\"Event(Action-End, SELF, Speak([cs], [ns], *, *), John)\",\"Conditions\":{\"Set\":[]},\"AppraisalVariables\":{\"AppraisalVariables\":[{\"Name\":\"Praiseworthiness\",\"Value\":-5,\"Target\":\"SELF\"}]}},{\"EventName\":\"Event(Action-End, SELF, Speak([cs], [ns], *, *), Charlie)\",\"Conditions\":{\"Set\":[]},\"AppraisalVariables\":{\"AppraisalVariables\":[{\"Name\":\"Praiseworthiness\",\"Value\":-5,\"Target\":\"SELF\"}]}},{\"EventName\":\"Event(Action-End, SELF, Do, John)\",\"Conditions\":{\"Set\":[]},\"AppraisalVariables\":{\"AppraisalVariables\":[{\"Name\":\"Praiseworthiness\",\"Value\":-5,\"Target\":\"John\"}]}},{\"EventName\":\"Event(Action-End, SELF, Do, Charlie)\",\"Conditions\":{\"Set\":[]},\"AppraisalVariables\":{\"AppraisalVariables\":[{\"Name\":\"Praiseworthiness\",\"Value\":-6,\"Target\":\"Chalie\"}]}},{\"EventName\":\"Event(Property-Change, SELF, Hello(World), [t])\",\"Conditions\":{\"Set\":[]},\"AppraisalVariables\":{\"AppraisalVariables\":[{\"Name\":\"Praiseworthiness\",\"Value\":6,\"Target\":\"[t]\"}]}}]}},\"types\":[{\"TypeId\":0,\"ClassName\":\"EmotionalAppraisal.EmotionalAppraisalAsset, EmotionalAppraisal, Version=1.4.1.0, Culture=neutral, PublicKeyToken=null\"}]},\"EmotionalDecisionMakingAsset\",{\"root\":{\"classId\":0,\"ActionTendencies\":[{\"Action\":\"Speak([cs], [ns], [mean], [style])\",\"Target\":\"[t]\",\"Layer\":\"-\",\"Conditions\":{\"Set\":[\"DialogueState([t]) = [cs]\",\"Has(Floor) = SELF\",\"ValidDialogue([cs], [ns], [mean], [style]) = True\"]},\"Priority\":1},{\"Action\":\"Speak([cs], [ns], [mean], Rude)\",\"Target\":\"[t]\",\"Layer\":\"-\",\"Conditions\":{\"Set\":[\"DialogueState([t]) = [cs]\",\"ValidDialogue([cs], [ns], [mean], Rude) = True\",\"Has(Floor) = SELF\",\"Mood(SELF) < 0\"]},\"Priority\":5},{\"Action\":\"Speak([cs], [ns], [mean], Polite)\",\"Target\":\"[t]\",\"Layer\":\"-\",\"Conditions\":{\"Set\":[\"DialogueState([t]) = [cs]\",\"ValidDialogue([cs], [ns], [mean], Polite) = True\",\"Has(Floor) = SELF\",\"Mood(SELF) < 0\"]},\"Priority\":5}]},\"types\":[{\"TypeId\":0,\"ClassName\":\"EmotionalDecisionMaking.EmotionalDecisionMakingAsset, EmotionalDecisionMaking, Version=1.2.0.0, Culture=neutral, PublicKeyToken=null\"}]},\"SocialImportanceAsset\",{\"root\":{\"classId\":0,\"AttributionRules\":[{\"RuleName\":\"Good Mood\",\"Target\":\"[t]\",\"Value\":10,\"Conditions\":{\"Set\":[\"Mood(SELF) > 0\"]}},{\"RuleName\":\"Close Friends\",\"Target\":\"[t]\",\"Value\":20,\"Conditions\":{\"Set\":[\"CloseFriends([t]) = True\"]}},{\"RuleName\":\"TalktTo\",\"Target\":\"[t]\",\"Value\":40,\"Conditions\":{\"Set\":[\"EventId(Action-End, [t], Speak(*, *, *, *), SELF) != -1\"]}}]},\"types\":[{\"TypeId\":0,\"ClassName\":\"SocialImportance.SocialImportanceAsset, SocialImportance, Version=1.5.0.0, Culture=neutral, PublicKeyToken=null\"}]},\"CommeillFautAsset\",{\"root\":{\"classId\":0,\"SocialExchanges\":[]},\"types\":[{\"TypeId\":0,\"ClassName\":\"CommeillFaut.CommeillFautAsset, CommeillFaut, Version=1.7.0.0, Culture=neutral, PublicKeyToken=null\"}]}]";
+
+        String scenarioString = "{\"root\":{\"classId\":0,\"ScenarioName\":\"Example\",\"Description\":\"A short conversation between the Player and a Character named Charlie. Charlie discovers that there is a major conspiracy within the company he works in. \",\"Dialogues\":[{\"CurrentState\":\"Leave\",\"NextState\":\"End\",\"Meaning\":\"-\",\"Style\":\"-\",\"Utterance\":\"Alright, goodbye\",\"UtteranceId\":\"TTS-CCF7877090E49659FB15B89D80C365A7\"},{\"CurrentState\":\"Greeting\",\"NextState\":\"Order\",\"Meaning\":\"-\",\"Style\":\"Polite\",\"Utterance\":\"How do you do?\",\"UtteranceId\":\"TTS-E191BADF9DAD8B0EDC942E4A6DFC8D64\"},{\"CurrentState\":\"Greeting\",\"NextState\":\"Leave\",\"Meaning\":\"-\",\"Style\":\"VeryRude\",\"Utterance\":\"Not you again\",\"UtteranceId\":\"TTS-4DDAA9A4B302A0E4E9DEE292CDB9481D\"},{\"CurrentState\":\"Order\",\"NextState\":\"OrderResponse\",\"Meaning\":\"Hamburger\",\"Style\":\"-\",\"Utterance\":\"Yes, I would like a burger please\",\"UtteranceId\":\"TTS-6D501E2FE494013994B75A7225E5FA29\"},{\"CurrentState\":\"Greeting\",\"NextState\":\"Order\",\"Meaning\":\"-\",\"Style\":\"Polite\",\"Utterance\":\"How can I help you?\",\"UtteranceId\":\"TTS-C425F01490F94A3080B9922108A78C33\"},{\"CurrentState\":\"Start\",\"NextState\":\"Greeting\",\"Meaning\":\"-\",\"Style\":\"Rude\",\"Utterance\":\"Hey\",\"UtteranceId\":\"TTS-6057F13C496ECF7FD777CEB9E79AE285\"},{\"CurrentState\":\"Start\",\"NextState\":\"Greeting\",\"Meaning\":\"-\",\"Style\":\"Polite\",\"Utterance\":\"Good Afternoon\",\"UtteranceId\":\"TTS-91145E15F72DF3A48A9E83CAE7E3BED7\"},{\"CurrentState\":\"Order\",\"NextState\":\"OrderResponse\",\"Meaning\":\"Pizza\",\"Style\":\"-\",\"Utterance\":\"Yes, I would like a Pizza please\",\"UtteranceId\":\"TTS-E2A8BDFAB9C5D5B8A5CD9A67F8C08155\"}],\"Characters\":[{\"KnowledgeBase\":{\"Perspective\":\"Charlie\",\"Knowledge\":{\"SELF\":{\"Has(Floor)\":\"Charlie, 1\",\"DialogueState(Player)\":\"Start, 1\",\"AM(Charlie)\":\"True, 1\",\"CloseFriends(Player)\":\"False, 1\"}}},\"BodyName\":\"Male\",\"VoiceName\":\"Male\",\"EmotionalState\":{\"Mood\":4,\"initialTick\":0,\"EmotionalPool\":[],\"AppraisalConfiguration\":{\"HalfLifeDecayConstant\":0.5,\"EmotionInfluenceOnMoodFactor\":0.3,\"MoodInfluenceOnEmotionFactor\":0.3,\"MinimumMoodValueForInfluencingEmotions\":0.5,\"EmotionalHalfLifeDecayTime\":15,\"MoodHalfLifeDecayTime\":60}},\"AutobiographicMemory\":{\"Tick\":0,\"records\":[]},\"OtherAgents\":{\"dictionary\":[]},\"Goals\":[{\"Name\":\"Survive\",\"Significance\":5,\"Likelihood\":0.5}]},{\"KnowledgeBase\":{\"Perspective\":\"Player\",\"Knowledge\":{\"SELF\":{\"Has(Floor)\":\"Charlie, 1\",\"DialogueState(Charlie)\":\"Start, 1\"}}},\"BodyName\":null,\"VoiceName\":null,\"EmotionalState\":{\"Mood\":-3,\"initialTick\":0,\"EmotionalPool\":[],\"AppraisalConfiguration\":{\"HalfLifeDecayConstant\":0.5,\"EmotionInfluenceOnMoodFactor\":0.3,\"MoodInfluenceOnEmotionFactor\":0.3,\"MinimumMoodValueForInfluencingEmotions\":0.5,\"EmotionalHalfLifeDecayTime\":15,\"MoodHalfLifeDecayTime\":60}},\"AutobiographicMemory\":{\"Tick\":0,\"records\":[]},\"OtherAgents\":{\"dictionary\":[]},\"Goals\":[{\"Name\":\"Survive\",\"Significance\":5,\"Likelihood\":0.2}]}],\"WorldModel\":{\"Effects\":{\"dictionary\":[{\"key\":\"Event(Action-End, [s], Speak(*, [ns], *, *), [t])\",\"value\":[{\"PropertyName\":\"DialogueState([s])\",\"NewValue\":\"[ns]\",\"ObserverAgent\":\"[t]\"},{\"PropertyName\":\"Has(Floor)\",\"NewValue\":\"[t]\",\"ObserverAgent\":\"*\"},{\"PropertyName\":\"DialogueState([s])\",\"NewValue\":\"[ns]\",\"ObserverAgent\":\"Player\"}]}]},\"Priorities\":{\"dictionary\":[{\"key\":\"Event(Action-End, [s], Speak(*, [ns], *, *), [t])\",\"value\":1}]}}},\"types\":[{\"TypeId\":0,\"ClassName\":\"IntegratedAuthoringTool.IntegratedAuthoringToolAsset, IntegratedAuthoringTool, Version=1.7.0.0, Culture=neutral, PublicKeyToken=null\"}]}";
+
+#else
+
         // Loading Storage json with the Rules, files must be in the Streaming Assets Folder
 
-        var storagePath = Application.streamingAssetsPath + "/SingleCharacterV4.0/storage.json";
+        var storagePath = Application.streamingAssetsPath + "/SingleCharacter/storage.json";
 
         // Making sure it works on Android and Web-GL
         UnityEngine.Networking.UnityWebRequest www = UnityEngine.Networking.UnityWebRequest.Get(storagePath);
@@ -57,12 +67,11 @@ public class ManagerScript : MonoBehaviour
 
         }
 
-        String jsonString = www.downloadHandler.text;
-        var storage = AssetStorage.FromJson(jsonString);
+        String storageString = www.downloadHandler.text;
         
      
         //Loading Scenario information with data regarding characters and dialogue
-        var iatPath = Application.streamingAssetsPath + "/SingleCharacterV4.0/scenario.json";
+        var iatPath = Application.streamingAssetsPath + "/SingleCharacter/scenario.json";
 
         //I have to do the same I just did before
         // Making sure it works on Android and Web-GL
@@ -74,10 +83,12 @@ public class ManagerScript : MonoBehaviour
 
         }
 
-        jsonString = www.downloadHandler.text;
-       
+        String scenarioString = www.downloadHandler.text;
+#endif
+
+            var storage = AssetStorage.FromJson(storageString);
         // Now that I have gotten the string for sure I can load the IAT
-        _iat = IntegratedAuthoringToolAsset.FromJson(jsonString, storage);
+        _iat = IntegratedAuthoringToolAsset.FromJson(scenarioString, storage);
 
         var currentState = IATConsts.INITIAL_DIALOGUE_STATE;
 
@@ -246,7 +257,7 @@ public class ManagerScript : MonoBehaviour
 
 
             // Returns a list of all the dialogues given the parameters
-            var dialog = _iat.GetDialogueActions(currentState, (Name)"*", (Name)"*", (Name)"*");
+            var dialog = _iat.GetDialogueActions(currentState, nextState, (Name)"*", (Name)"*");
             AddDialogueButtons(dialog, decision.Target);
 
 
@@ -320,7 +331,7 @@ public class ManagerScript : MonoBehaviour
         var utteranceID = _iat.GetDialogActionById(id).UtteranceId;
 
         // This path can be changed, for now it is the path we used in this project
-        var textToSpeechPath = "/SingleCharacterv4.0/TTS/" + voiceType + "/" + utteranceID;
+        var textToSpeechPath = "/SingleCharacter/TTS/" + voiceType + "/" + utteranceID;
 
         var absolutePath = Application.streamingAssetsPath;
         

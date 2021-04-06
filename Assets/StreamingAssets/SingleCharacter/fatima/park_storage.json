@@ -1,0 +1,152 @@
+[
+"EmotionalAppraisalAsset", 
+{
+	"root":
+		{
+			"classId": 0,
+			"Description": null,
+			"AppraisalRules":
+				{
+					"AppraisalWeight": 1,
+					"Rules": [
+						{
+							"EventName": "Event(Action-End, *, Give([gift]), SELF)",
+							"Conditions":
+								{
+									"Set": ["Likes([gift]) = True"]
+								},
+							"AppraisalVariables":
+								{
+									"AppraisalVariables": [
+										{
+											"Name": "Desirability",
+											"Value": 5,
+											"Target": "-"
+										}]
+								}
+						}, 
+						{
+							"EventName": "Event(Action-End, *, Give([gift]), SELF)",
+							"Conditions":
+								{
+									"Set": []
+								},
+							"AppraisalVariables":
+								{
+									"AppraisalVariables": [
+										{
+											"Name": "Desirability",
+											"Value": -5,
+											"Target": "-"
+										}]
+								}
+						}, 
+						{
+							"EventName": "Event(Action-End, *, Speak(*, *, *, *), SELF)",
+							"Conditions":
+								{
+									"Set": []
+								},
+							"AppraisalVariables":
+								{
+									"AppraisalVariables": [
+										{
+											"Name": "Desirability",
+											"Value": -3,
+											"Target": "-"
+										}, 
+										{
+											"Name": "Praiseworthiness",
+											"Value": 10,
+											"Target": "-"
+										}]
+								}
+						}]
+				}
+		},
+	"types": [
+		{
+			"TypeId": 0,
+			"ClassName": "EmotionalAppraisal.EmotionalAppraisalAsset, EmotionalAppraisal, Version=1.4.1.0, Culture=neutral, PublicKeyToken=null"
+		}]
+},
+"EmotionalDecisionMakingAsset", 
+{
+	"root":
+		{
+			"classId": 0,
+			"ActionTendencies": [
+				{
+					"Action": "Give([gift])",
+					"Target": "[t]",
+					"Layer": "-",
+					"Conditions":
+						{
+							"Set": ["Mood(SELF) > 0", "isAgent([t]) = True", "[t] != SELF", "Likes([gift]) = True"]
+						},
+					"Priority": 1
+				}, 
+				{
+					"Action": "Speak([cs], [ns], [m], [ty])",
+					"Target": "[t]",
+					"Layer": "-",
+					"Conditions":
+						{
+							"Set": ["isAgent([t]) = True", "[t] != SELF", "DialogueState([t]) = [cs]", "ValidDialogue([cs], [ns], [m], [ty]) = True"]
+						},
+					"Priority": 2
+				}, 
+				{
+					"Action": "Speak([cs], [ns], -, Rude)",
+					"Target": "[t]",
+					"Layer": "-",
+					"Conditions":
+						{
+							"Set": ["isAgent([t]) = True", "Mood(Self) < 0", "[t] != SELF", "DialogueState([t]) = [cs]", "ValidDialogue([cs], [ns], -, Rude) = True"]
+						},
+					"Priority": 3
+				}, 
+				{
+					"Action": "Speak(a, b, c, d)",
+					"Target": "John",
+					"Layer": "-",
+					"Conditions":
+						{
+							"Set": []
+						},
+					"Priority": 1
+				}]
+		},
+	"types": [
+		{
+			"TypeId": 0,
+			"ClassName": "EmotionalDecisionMaking.EmotionalDecisionMakingAsset, EmotionalDecisionMaking, Version=1.2.0.0, Culture=neutral, PublicKeyToken=null"
+		}]
+},
+"SocialImportanceAsset", 
+{
+	"root":
+		{
+			"classId": 0,
+			"AttributionRules": []
+		},
+	"types": [
+		{
+			"TypeId": 0,
+			"ClassName": "SocialImportance.SocialImportanceAsset, SocialImportance, Version=1.5.0.0, Culture=neutral, PublicKeyToken=null"
+		}]
+},
+"CommeillFautAsset", 
+{
+	"root":
+		{
+			"classId": 0,
+			"SocialExchanges": []
+		},
+	"types": [
+		{
+			"TypeId": 0,
+			"ClassName": "CommeillFaut.CommeillFautAsset, CommeillFaut, Version=1.7.0.0, Culture=neutral, PublicKeyToken=null"
+		}]
+}
+]
