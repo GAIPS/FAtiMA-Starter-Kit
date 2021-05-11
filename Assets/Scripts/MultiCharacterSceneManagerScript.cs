@@ -461,7 +461,7 @@ public class MultiCharacterSceneManagerScript : MonoBehaviour
         var utteranceID = _iat.GetDialogActionById(id).UtteranceId;
 
         // This path can be changed, for now it is the path we used in this project
-        var textToSpeechPath = "/MultiCharacterv4.0/TTS/" + voiceType + "/" + utteranceID;
+        var textToSpeechPath = "/MultiCharacter/TTS/" + voiceType + "/" + utteranceID;
 
         var absolutePath = Application.streamingAssetsPath;
         
