@@ -11,4 +11,6 @@
 	<assembly fullname="EmotionalDecisionMaking" preserve="all"/>
 	<assembly fullname="WellFormedNames" preserve="all"/>
 	<assembly fullname="Conditions" preserve="all"/>
+	<assembly fullname="WorldModel" preserve="all"/>
+	<assembly fullname="SerializationUtilities" preserve="all"/>
 </linker>

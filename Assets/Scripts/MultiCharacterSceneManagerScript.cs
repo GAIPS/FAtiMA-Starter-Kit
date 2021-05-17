@@ -18,7 +18,7 @@ using WellFormedNames;
 using WorldModel;
 using GAIPS.Rage;
 using System.Net;
-
+using UnityEngine.Networking;
 
 
 public class MultiCharacterSceneManagerScript : MonoBehaviour
@@ -31,6 +31,7 @@ public class MultiCharacterSceneManagerScript : MonoBehaviour
 
     //Store the characters
     private List<RolePlayCharacterAsset> _rpcList;
+    private AssetStorage storage;
 
     //Store the World Model
     private WorldModelAsset _worldModel;
@@ -45,10 +46,24 @@ public class MultiCharacterSceneManagerScript : MonoBehaviour
 
     private List<UnityBodyImplement> _agentBodyControlers;
 
+    // We need to save information returned by UnityWebRequest during the loading process
+    string scenarioInfo = "{\"root\":{\"classId\":0,\"ScenarioName\":\"q\",\"Description\":\"wdsdad\",\"Dialogues\":[],\"Characters\":[{\"KnowledgeBase\":{\"Perspective\":\"John\",\"Knowledge\":{}},\"BodyName\":null,\"VoiceName\":null,\"EmotionalState\":{\"Mood\":0,\"initialTick\":0,\"EmotionalPool\":[],\"AppraisalConfiguration\":{\"HalfLifeDecayConstant\":0.5,\"EmotionInfluenceOnMoodFactor\":0.3,\"MoodInfluenceOnEmotionFactor\":0.3,\"MinimumMoodValueForInfluencingEmotions\":0.5,\"EmotionalHalfLifeDecayTime\":15,\"MoodHalfLifeDecayTime\":60}},\"AutobiographicMemory\":{\"Tick\":0,\"records\":[]},\"OtherAgents\":{\"dictionary\":[]},\"Goals\":[]},{\"KnowledgeBase\":{\"Perspective\":\"Clara\",\"Knowledge\":{}},\"BodyName\":null,\"VoiceName\":null,\"EmotionalState\":{\"Mood\":0,\"initialTick\":0,\"EmotionalPool\":[],\"AppraisalConfiguration\":{\"HalfLifeDecayConstant\":0.5,\"EmotionInfluenceOnMoodFactor\":0.3,\"MoodInfluenceOnEmotionFactor\":0.3,\"MinimumMoodValueForInfluencingEmotions\":0.5,\"EmotionalHalfLifeDecayTime\":15,\"MoodHalfLifeDecayTime\":60}},\"AutobiographicMemory\":{\"Tick\":0,\"records\":[]},\"OtherAgents\":{\"dictionary\":[]},\"Goals\":[]},{\"KnowledgeBase\":{\"Perspective\":\"Manel\",\"Knowledge\":{}},\"BodyName\":null,\"VoiceName\":null,\"EmotionalState\":{\"Mood\":0,\"initialTick\":0,\"EmotionalPool\":[],\"AppraisalConfiguration\":{\"HalfLifeDecayConstant\":0.5,\"EmotionInfluenceOnMoodFactor\":0.3,\"MoodInfluenceOnEmotionFactor\":0.3,\"MinimumMoodValueForInfluencingEmotions\":0.5,\"EmotionalHalfLifeDecayTime\":15,\"MoodHalfLifeDecayTime\":60}},\"AutobiographicMemory\":{\"Tick\":0,\"records\":[]},\"OtherAgents\":{\"dictionary\":[]},\"Goals\":[]}],\"WorldModel\":{\"Effects\":{\"dictionary\":[]},\"Priorities\":{\"dictionary\":[]}}},\"types\":[{\"TypeId\":0,\"ClassName\":\"IntegratedAuthoringTool.IntegratedAuthoringToolAsset, IntegratedAuthoringTool, Version=1.7.0.0, Culture=neutral, PublicKeyToken=null\"}]}"; 
+    string storageInfo = "[\"EmotionalAppraisalAsset\",{\"root\":{\"classId\":0,\"Description\":null,\"AppraisalRules\":{\"AppraisalWeight\":1,\"Rules\":[]}},\"types\":[{\"TypeId\":0,\"ClassName\":\"EmotionalAppraisal.EmotionalAppraisalAsset, EmotionalAppraisal, Version=1.4.1.0, Culture=neutral, PublicKeyToken=null\"}]},\"EmotionalDecisionMakingAsset\",{\"root\":{\"classId\":0,\"ActionTendencies\":[{\"Action\":\"Do\",\"Target\":\"Clara\",\"Layer\":\"-\",\"Conditions\":{\"Set\":[]},\"Priority\":1}]},\"types\":[{\"TypeId\":0,\"ClassName\":\"EmotionalDecisionMaking.EmotionalDecisionMakingAsset, EmotionalDecisionMaking, Version=1.2.0.0, Culture=neutral, PublicKeyToken=null\"}]},\"SocialImportanceAsset\",{\"root\":{\"classId\":0,\"AttributionRules\":[]},\"types\":[{\"TypeId\":0,\"ClassName\":\"SocialImportance.SocialImportanceAsset, SocialImportance, Version=1.5.0.0, Culture=neutral, PublicKeyToken=null\"}]},\"CommeillFautAsset\",{\"root\":{\"classId\":0,\"SocialExchanges\":[]},\"types\":[{\"TypeId\":0,\"ClassName\":\"CommeillFaut.CommeillFautAsset, CommeillFaut, Version=1.7.0.0, Culture=neutral, PublicKeyToken=null\"}]}]";
+    
+    bool scenarioDone = false;
+    bool storageDone = false;
     //Time given to each character's dialogue in case there is no text to speech
     public float dialogueTimer;
     //Auxiliary variable
     private float dialogueTimerAux;
+
+    //Dealing with Audio and XML relevant for Web-GL
+    UnityWebRequest audio;
+    UnityWebRequest xml;
+    string initiator;
+    bool audioReady = false;
+    bool xmlReady = false;
+    bool audioNeeded = false;
 
     // Used canvas
     public Canvas initialCanvas;
@@ -57,7 +72,7 @@ public class MultiCharacterSceneManagerScript : MonoBehaviour
     // Choose your character button prefab
     public Button menuButtonPrefab;
 
-    
+
     // Auxiliary Variables
     private bool initialized = false;
 
@@ -68,46 +83,50 @@ public class MultiCharacterSceneManagerScript : MonoBehaviour
 
     public List<GameObject> CharacterBodies;
 
- 
+    private bool isReady = false;
+
+
     // Use this for initialization
     void Start()
     {
+        Debug.Log("Loading...");
+        var streamingAssetsPath = Application.streamingAssetsPath;
+#if UNITY_EDITOR || UNITY_STANDALONE
+
+        streamingAssetsPath = "file://" + streamingAssetsPath;
+#endif
+
+
         // Loading Storage json with the Rules, files must be in the Streaming Assets Folder
-        var storagePath = Application.streamingAssetsPath + "/MultiCharacter/multicharstorage.json";
-
-        // Making sure it works on Android and Web-GL
-        UnityEngine.Networking.UnityWebRequest www = UnityEngine.Networking.UnityWebRequest.Get(storagePath);
-        www.SendWebRequest();
-
-        while (!www.isDone)
-        {
-
-        }
-
-        String jsonString = www.downloadHandler.text;
-        var storage = AssetStorage.FromJson(jsonString);
+        var storagePath = streamingAssetsPath + "/MultiCharacter/multicharstorage.json";
 
         //Loading Scenario information with data regarding characters and dialogue
-        var iatPath = Application.streamingAssetsPath + "/MultiCharacter/scenario.json";
+        var iatPath = streamingAssetsPath + "/MultiCharacter/scenario.json";
 
-        //I have to do the same I just did before
-        // Making sure it works on Android and Web-GL
-        www = UnityEngine.Networking.UnityWebRequest.Get(iatPath);
-        www.SendWebRequest();
+        Debug.Log("WEB-GL:Loading Storage");
+        StartCoroutine(GetStorage(storagePath));
 
-        while (!www.isDone)
-        {
-
-        }
-
-        jsonString = www.downloadHandler.text;
-
-        // Now that I have gotten the string for sure I can load the IAT
-        _iat = IntegratedAuthoringToolAsset.FromJson(jsonString, storage);
+        Debug.Log("WEB-GL:Loading Scenario");
+ 
+        StartCoroutine(GetScenario(iatPath));
 
 
+
+    /*    storage = AssetStorage.FromJson(storageInfo);
+        Debug.Log(storage);
+
+        _iat = IntegratedAuthoringToolAsset.FromJson(scenarioInfo, storage);
+        Debug.Log("Character: " + _iat.Characters.FirstOrDefault().CharacterName);
+        scenarioDone = true;
+        storageDone = true;*/
+//#elif UNITY_WEBGL
+//#endif
+    }
+
+
+    void LoadedScenario()
+    {
         var currentState = IATConsts.INITIAL_DIALOGUE_STATE;
-
 
         // Getting a list of all the Characters
         _rpcList = _iat.Characters.ToList();
@@ -115,12 +134,14 @@ public class MultiCharacterSceneManagerScript : MonoBehaviour
         //Saving the World Model
         _worldModel = _iat.WorldModel;
 
+        Debug.Log("Scenario Name "  + _iat.ScenarioName);
 
+        
+        Debug.Log("Loading has finished");
 
+        isReady = true;
         ChooseCharacterMenu();
-
     }
-
 
 
     void ChooseCharacterMenu()
@@ -128,23 +149,26 @@ public class MultiCharacterSceneManagerScript : MonoBehaviour
 
         foreach (var rpc in _rpcList)
         {
-          
+
             // What happens when the player chooses to be a particular character
 
             AddButton(rpc.CharacterName.ToString(), () =>
             {
-               LoadGame(rpc);
+                LoadGame(rpc);
 
             });
         }
-     
+
+
     }
+
+
 
     private void LoadGame(RolePlayCharacterAsset rpc)
     {
 
         Debug.Log("Player chose " + rpc.CharacterName + " number of rpcs " + _rpcList.Count);
-      
+
         _playerRpc = rpc;
 
         _playerRpc.IsPlayer = true;
@@ -184,7 +208,7 @@ public class MultiCharacterSceneManagerScript : MonoBehaviour
 
         _agentBodyControlers.Add(unityBodyImplement);
 
-        foreach(var e in _agentBodyControlers)
+        foreach (var e in _agentBodyControlers)
         {
             Debug.Log(e.Body);
         }
@@ -204,25 +228,45 @@ public class MultiCharacterSceneManagerScript : MonoBehaviour
 
         var buttonLabel = button.GetComponentInChildren<Text>();
         buttonLabel.text = label;
-     
+
         button.onClick.AddListener(action);
     }
 
 
 
-    
+
 
     // Update is called once per frame
     void Update()
     {
+        if (!isReady)
+        {
+            if(scenarioDone && storageDone)
+            {
+                Debug.Log("Finished Reading Files");
+                isReady = true;
+                LoadWebGL();
+            }
+        }
+
+        
         if (!initialized) return;
 
 
-        if (_waitingForPlayer) 
+        if (_agentBodyControlers.Any(x => x._speechController.IsPlaying))
             return;
 
-        if(_agentBodyControlers.Any(x=>x._speechController.IsPlaying))
+        if (audioNeeded)
+        {
+           
+            if (audioReady && xmlReady)
+                StartCoroutine(PlayAudio());
+            else return;
+        }
+
+        if (_waitingForPlayer)
             return;
+
 
 
         if (dialogueTimerAux > 0)
@@ -230,6 +274,7 @@ public class MultiCharacterSceneManagerScript : MonoBehaviour
             dialogueTimerAux -= Time.deltaTime;
             return;
         }
+
 
         IAction finalDecision = null;
         String initiatorAgent = "";
@@ -241,12 +286,12 @@ public class MultiCharacterSceneManagerScript : MonoBehaviour
             // From all the decisions the rpc wants to perform we want the first one (as it is ordered by priority)
             var decision = rpc.Decide().FirstOrDefault();
 
-           
+
 
             if (_playerRpc.CharacterName == rpc.CharacterName)
             {
                 HandlePlayerOptions(decision);
-                continue;;
+                continue; ;
 
             }
 
@@ -257,7 +302,7 @@ public class MultiCharacterSceneManagerScript : MonoBehaviour
                 finalDecision = decision;
 
 
-              //Write the decision on the canvas
+                //Write the decision on the canvas
                 GameObject.Find("DecisionText").GetComponent<Text>().text =
                     " " + initiatorAgent + " decided to " + decision.Name.ToString() + " towards " + decision.Target;
                 break;
@@ -269,7 +314,7 @@ public class MultiCharacterSceneManagerScript : MonoBehaviour
         if (finalDecision != null)
 
         {
-           ChooseDialogue(finalDecision, (Name)initiatorAgent);
+            ChooseDialogue(finalDecision, (Name)initiatorAgent);
         }
 
 
@@ -281,14 +326,17 @@ public class MultiCharacterSceneManagerScript : MonoBehaviour
     void Reply(System.Guid id, Name initiator, Name target)
 
     {
-        dialogueTimerAux =  dialogueTimer;
+        dialogueTimerAux = dialogueTimer;
         // Retrieving the chosen dialog object
         var dialog = _iat.GetDialogActionById(id);
 
         // Playing the audio of the dialogue line
 
-        if(useTextToSpeech)
-       this.StartCoroutine(Speak(id, initiator, target));
+        if (useTextToSpeech)
+        {
+            this.StartCoroutine(Speak(id, initiator, target));
+        }
+
 
 
         //Writing the dialog on the canvas
@@ -308,8 +356,8 @@ public class MultiCharacterSceneManagerScript : MonoBehaviour
 
         //Inform each participating agent of what happened
 
-        _rpcList.Find(x=>x.CharacterName == initiator).Perceive(eventName);
-        _rpcList.Find(x=>x.CharacterName == target).Perceive(eventName);
+        _rpcList.Find(x => x.CharacterName == initiator).Perceive(eventName);
+        _rpcList.Find(x => x.CharacterName == target).Perceive(eventName);
 
         //Handle the consequences of their actions
         HandleEffects(eventName);
@@ -318,7 +366,7 @@ public class MultiCharacterSceneManagerScript : MonoBehaviour
 
     void HandleEffects(Name _event)
     {
-        var consequences = _worldModel.Simulate(new Name[] {_event} );
+        var consequences = _worldModel.Simulate(new Name[] { _event });
 
         // For each effect 
         foreach (var eff in consequences)
@@ -330,7 +378,7 @@ public class MultiCharacterSceneManagerScript : MonoBehaviour
             {
 
                 //If the "Observer" part of the effect corresponds to the name of the agent or if it is a universal symbol
-                if (eff.ObserverAgent != rpc.CharacterName && eff.ObserverAgent != (Name) "*") continue;
+                if (eff.ObserverAgent != rpc.CharacterName && eff.ObserverAgent != (Name)"*") continue;
                 //Apply that consequence to the agent
                 rpc.Perceive(EventHelper.PropertyChange(eff.PropertyName, eff.NewValue, rpc.CharacterName));
 
@@ -345,7 +393,7 @@ public class MultiCharacterSceneManagerScript : MonoBehaviour
     void ChooseDialogue(IAction action, Name initiator)
     {
         Debug.Log(" The agent " + initiator + " decided to perform " + action.Name + " towards " + action.Target);
-        
+
         //                                          NTerm: 0     1     2     3     4
         // If it is a speaking action it is composed by Speak ( [ms], [ns] , [m}, [sty])
         var currentState = action.Name.GetNTerm(1);
@@ -357,8 +405,8 @@ public class MultiCharacterSceneManagerScript : MonoBehaviour
         // Returns a list of all the dialogues given the parameters but in this case we only want the first element
         var dialog = _iat.GetDialogueActions(currentState, nextState, meaning, style).FirstOrDefault();
 
-        
-        if(dialog!=null)
+
+        if (dialog != null)
             Reply(dialog.Id, initiator, action.Target);
     }
 
@@ -366,31 +414,31 @@ public class MultiCharacterSceneManagerScript : MonoBehaviour
     void HandlePlayerOptions(IAction decision)
     {
         _waitingForPlayer = true;
-        if(decision != null)
-        if (decision.Key.ToString() == "Speak")
-        {
-            //                                          NTerm: 0     1     2     3     4
-            // If it is a speaking action it is composed by Speak ( [ms], [ns] , [m}, [sty])
-            var currentState = decision.Name.GetNTerm(1);
-            var nextState = decision.Name.GetNTerm(2);
-            var meaning = decision.Name.GetNTerm(3);
-            var style = decision.Name.GetNTerm(4);
+        if (decision != null)
+            if (decision.Key.ToString() == "Speak")
+            {
+                //                                          NTerm: 0     1     2     3     4
+                // If it is a speaking action it is composed by Speak ( [ms], [ns] , [m}, [sty])
+                var currentState = decision.Name.GetNTerm(1);
+                var nextState = decision.Name.GetNTerm(2);
+                var meaning = decision.Name.GetNTerm(3);
+                var style = decision.Name.GetNTerm(4);
 
 
-            // Returns a list of all the dialogues given the parameters
-            var dialog = _iat.GetDialogueActions(currentState, nextState, (Name)"*", (Name)"*");
+                // Returns a list of all the dialogues given the parameters
+                var dialog = _iat.GetDialogueActions(currentState, nextState, (Name)"*", (Name)"*");
 
-            foreach(var d in dialog)
+                foreach (var d in dialog)
                 {
                     d.Utterance = _playerRpc.ProcessWithBeliefs(d.Utterance);
                 }
 
-            AddDialogueButtons(dialog, decision.Target);
+                AddDialogueButtons(dialog, decision.Target);
 
 
-        }
+            }
 
-        else Debug.LogWarning("Unknown action: " + decision.Key);
+            else Debug.LogWarning("Unknown action: " + decision.Key);
 
     }
 
@@ -407,17 +455,17 @@ public class MultiCharacterSceneManagerScript : MonoBehaviour
             var t = b.transform;
 
             t.SetParent(GameObject.Find("DialogueOptions").transform, false);
-            
-            i++;  
-            
-            b.GetComponentInChildren<Text>().text = i + ": " +  d.Utterance;
-            
+
+            i++;
+
+            b.GetComponentInChildren<Text>().text = i + ": " + d.Utterance;
+
             var id = d.Id;
 
             b.onClick.AddListener(() => Reply(id, _playerRpc.CharacterName, target));
-            
+
             _mButtonList.Add(b);
-            
+
         }
     }
 
@@ -434,14 +482,23 @@ public class MultiCharacterSceneManagerScript : MonoBehaviour
 
     void UpdateAgentFacialExpression()
     {
-      foreach(var agent in _agentBodyControlers)
+        foreach (var agent in _agentBodyControlers)
         {
             var strongestEmotion = _rpcList.Find(x => x.CharacterName.ToString() == agent.gameObject.tag).GetStrongestActiveEmotion();
 
             if (strongestEmotion != null)
-            agent.SetExpression(strongestEmotion.EmotionType, strongestEmotion.Intensity / 10);
+            {
+                try
+                {
+                    agent.SetExpression(strongestEmotion.EmotionType, strongestEmotion.Intensity / 10);
+                } catch (Exception e)
+                {
+                    Debug.Log("Exception Caught: " + e.Message);
+                }
+
+            }
         }
-    
+
 
     }
 
@@ -449,11 +506,16 @@ public class MultiCharacterSceneManagerScript : MonoBehaviour
     // Method to play the audio file of the specific dialogue, aka what makes the agent talk
     private IEnumerator Speak(System.Guid id, Name initiator, Name target)
     {
-
+        
         // The player has no body, as a consequence there is no reason for him to speak
-        if(_playerRpc.CharacterName == initiator)
+        if (_playerRpc.CharacterName == initiator)
             yield break;
 
+      
+        audioNeeded = true;
+        xmlReady = false;
+        audioReady = false;
+        this.initiator = initiator.ToString();
         // What is the type of of Voice of the agent
         var voiceType = _rpcList.Find(x => x.CharacterName == initiator).VoiceName;
 
@@ -464,47 +526,142 @@ public class MultiCharacterSceneManagerScript : MonoBehaviour
         var textToSpeechPath = "/MultiCharacter/TTS/" + voiceType + "/" + utteranceID;
 
         var absolutePath = Application.streamingAssetsPath;
-        
+
 
 #if UNITY_EDITOR || UNITY_STANDALONE
         absolutePath = "file://" + absolutePath;
 #endif
-       
+
         // System tries to "download" the .wav file along with its xml configuration
         string audioUrl = absolutePath + textToSpeechPath + ".wav";
         string xmlUrl = absolutePath + textToSpeechPath + ".xml";
 
-        var audio = new WWW(audioUrl);
-        var xml = new WWW(xmlUrl);
+        StartCoroutine(GetXML(xmlUrl));
+        StartCoroutine(GetAudioURL(audioUrl));
+       
 
-        yield return audio;
-        yield return xml;
 
-        // If these files were not found then simply return
-        var xmlError = !string.IsNullOrEmpty(xml.error);
-        var audioError = !string.IsNullOrEmpty(audio.error);
+    }
 
-        if (xmlError)
-            Debug.LogError(xml.error);
-        if (audioError)
-            Debug.LogError(audio.error);
 
-        if (xmlError || audioError)
+    private IEnumerator PlayAudio()
+    {
+
+        Debug.Log("Playing Audio");
+        var clip = DownloadHandlerAudioClip.GetContent(audio);
+        // The Unity Body Implement script allows us to play sound clips
+        var initiatorBodyController = _agentBodyControlers.Find(x => x.gameObject.tag == initiator.ToString());
+        yield return initiatorBodyController.PlaySpeech(clip, xml.downloadHandler.text);
+
+        clip.UnloadAudioData();
+        audioNeeded = false;
+
+    }
+
+
+    void LoadWebGL()
+    {
+        Debug.Log("Loading Web Gl Method");
+
+        Debug.Log("Loading Storage string");
+        storage = AssetStorage.FromJson(storageInfo);
+
+        Debug.Log("Loading IAT string");
+        _iat = IntegratedAuthoringToolAsset.FromJson(scenarioInfo, storage);
+
+        Debug.Log("Finished Loading Web-GL");
+       
+        LoadedScenario();
+    }
+
+
+    IEnumerator GetScenario(string path)
+    {
+        UnityEngine.Networking.UnityWebRequest www = UnityEngine.Networking.UnityWebRequest.Get(path);
+
+        yield return www.SendWebRequest();
+
+        if (www.result != UnityWebRequest.Result.Success)
         {
-            yield return new WaitForSeconds(2);
-
+            Debug.Log(www.error);
         }
-
         else
         {
+            // Show results as text
+            Debug.Log(www.downloadHandler.text);
 
-            var clip = audio.GetAudioClip(false);
+            // Or retrieve results as binary data
+            byte[] results = www.downloadHandler.data;
 
-            // The Unity Body Implement script allows us to play sound clips
-            var initiatorBodyController = _agentBodyControlers.Find(x => x.gameObject.tag == initiator.ToString());
-            yield return initiatorBodyController.PlaySpeech(clip, xml.text);
-
-            clip.UnloadAudioData();
+            scenarioInfo = www.downloadHandler.text;
+            Debug.Log("Loaded Scenario:" + scenarioInfo.ToString());
+            scenarioDone = true;
         }
     }
+
+    IEnumerator GetStorage(string path)
+    {
+        UnityEngine.Networking.UnityWebRequest www = UnityEngine.Networking.UnityWebRequest.Get(path);
+
+        yield return www.SendWebRequest();
+
+        if (www.result != UnityWebRequest.Result.Success)
+        {
+            Debug.Log(www.error);
+        }
+        else
+        {
+            // Show results as text
+            Debug.Log(www.downloadHandler.text);
+
+            // Or retrieve results as binary data
+            byte[] results = www.downloadHandler.data;
+
+            storageInfo = www.downloadHandler.text;
+            Debug.Log("Loaded Storage:" + storageInfo.ToString());
+            storageDone = true;
+        }
+
+    }
+
+    IEnumerator GetAudioURL(string path)
+    {
+      
+        audio = UnityWebRequestMultimedia.GetAudioClip(path, AudioType.WAV);
+
+        yield return audio.SendWebRequest();
+
+        if (audio.result != UnityWebRequest.Result.Success)
+        {
+            Debug.Log(audio.error);
+        }
+        else
+        {
+          
+            audioReady = true;
+        }
+
+    }
+
+    IEnumerator GetXML(string path)
+    {
+        UnityEngine.Networking.UnityWebRequest www = UnityEngine.Networking.UnityWebRequest.Get(path);
+
+        yield return www.SendWebRequest();
+
+        if (www.result != UnityWebRequest.Result.Success)
+        {
+            Debug.Log(www.error);
+        }
+        else
+        {
+            xml = www;
+            xmlReady = true;
+
+
+        }
+
+    }
+
+
 }

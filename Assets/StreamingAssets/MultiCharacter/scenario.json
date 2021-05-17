@@ -7,14 +7,6 @@
 			"Dialogues": [
 				{
 					"CurrentState": "Introductions",
-					"NextState": "Greet",
-					"Meaning": "-",
-					"Style": "-",
-					"Utterance": "Hello there",
-					"UtteranceId": "TTS-C6F7C372641DD25E0FDDF0215375561F"
-				}, 
-				{
-					"CurrentState": "Introductions",
 					"NextState": "Specialist",
 					"Meaning": "-",
 					"Style": "Polite",
@@ -119,19 +111,11 @@
 				}, 
 				{
 					"CurrentState": "SpecialistState",
-					"NextState": "Age",
+					"NextState": "Yourself",
 					"Meaning": "-",
 					"Style": "Polite",
 					"Utterance": "Very well, how old are you?",
 					"UtteranceId": "TTS-6E27185F22A197AA8114B1283FE4D599"
-				}, 
-				{
-					"CurrentState": "Greet",
-					"NextState": "Introductions",
-					"Meaning": "-",
-					"Style": "-",
-					"Utterance": "Doctor Kenobi",
-					"UtteranceId": "TTS-8FAFB70C86319CA1B84D8110549D7DEF"
 				}],
 			"Characters": [
 				{
@@ -222,7 +206,7 @@
 								}
 						},
 					"BodyName": "Female",
-					"VoiceName": "Female",
+					"VoiceName": "Male",
 					"EmotionalState":
 						{
 							"Mood": 0,
