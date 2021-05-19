@@ -98,3 +98,79 @@ System memory in use after: 58.6 MB.
 Unloading 23 unused Assets to reduce memory usage. Loaded Objects now: 1576.
 Total: 1.692900 ms (FindLiveObjects: 0.126700 ms CreateObjectMapping: 0.032000 ms MarkObjects: 1.509300 ms  DeleteObjects: 0.024000 ms)
 
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.008049 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Native extension for WebGL target not found
+Refreshing native plugins compatible for Editor in 0.38 ms, found 0 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  0.917 seconds
+Platform modules already initialized, skipping
+Refreshing native plugins compatible for Editor in 0.35 ms, found 0 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 1142 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 58.5 MB.
+System memory in use after: 58.6 MB.
+
+Unloading 23 unused Assets to reduce memory usage. Loaded Objects now: 1579.
+Total: 1.952200 ms (FindLiveObjects: 0.236200 ms CreateObjectMapping: 0.055500 ms MarkObjects: 1.630600 ms  DeleteObjects: 0.027800 ms)
+
+========================================================================
+Received Prepare
+Registering precompiled user dll's ...
+Registered in 0.009636 seconds.
+Begin MonoManager ReloadAssembly
+Native extension for WindowsStandalone target not found
+Native extension for WebGL target not found
+Refreshing native plugins compatible for Editor in 0.64 ms, found 0 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Mono: successfully reloaded assembly
+- Completed reload, in  1.031 seconds
+Platform modules already initialized, skipping
+Refreshing native plugins compatible for Editor in 0.35 ms, found 0 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 1142 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 58.5 MB.
+System memory in use after: 58.6 MB.
+
+Unloading 23 unused Assets to reduce memory usage. Loaded Objects now: 1582.
+Total: 2.039200 ms (FindLiveObjects: 0.208400 ms CreateObjectMapping: 0.052700 ms MarkObjects: 1.748900 ms  DeleteObjects: 0.027000 ms)
+
+========================================================================
+Received Prepare
+Refreshing native plugins compatible for Editor in 4.29 ms, found 0 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 22 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 36.3 MB.
+System memory in use after: 36.4 MB.
+
+Unloading 21 unused Assets to reduce memory usage. Loaded Objects now: 1582.
+Total: 2.865900 ms (FindLiveObjects: 0.330600 ms CreateObjectMapping: 0.247500 ms MarkObjects: 2.265300 ms  DeleteObjects: 0.020100 ms)
+
+========================================================================
+Received Prepare
+Refreshing native plugins compatible for Editor in 4.96 ms, found 0 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 22 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 36.3 MB.
+System memory in use after: 36.4 MB.
+
+Unloading 21 unused Assets to reduce memory usage. Loaded Objects now: 1582.
+Total: 2.182600 ms (FindLiveObjects: 0.143800 ms CreateObjectMapping: 0.036600 ms MarkObjects: 1.979900 ms  DeleteObjects: 0.020700 ms)
+
+========================================================================
+Received Prepare
+Refreshing native plugins compatible for Editor in 5.18 ms, found 0 plugins.
+Preloading 0 native plugins for Editor in 0.00 ms.
+Unloading 22 Unused Serialized files (Serialized files now loaded: 0)
+System memory in use before: 36.3 MB.
+System memory in use after: 36.4 MB.
+
+Unloading 21 unused Assets to reduce memory usage. Loaded Objects now: 1582.
+Total: 3.771300 ms (FindLiveObjects: 0.199700 ms CreateObjectMapping: 0.043500 ms MarkObjects: 3.478600 ms  DeleteObjects: 0.046700 ms)
+
+AssetImportWorkerClient::OnTransportError - code=2 error=End of file

@@ -1,0 +1,356 @@
+[
+"EmotionalAppraisalAsset", 
+{
+	"root":
+		{
+			"classId": 0,
+			"Description": null,
+			"AppraisalRules":
+				{
+					"AppraisalWeight": 1,
+					"Rules": [
+						{
+							"EventName": "Event(Action-End, [x], Speak(*, *, Apology, *), *)",
+							"Conditions":
+								{
+									"Set": ["Player = [x]"]
+								},
+							"AppraisalVariables":
+								{
+									"AppraisalVariables": [
+										{
+											"Name": "Desirability",
+											"Value": 4,
+											"Target": "-"
+										}, 
+										{
+											"Name": "Praiseworthiness",
+											"Value": 2,
+											"Target": "-"
+										}]
+								}
+						}, 
+						{
+							"EventName": "Event(Action-End, [x], Speak(*, *, Honest, *), *)",
+							"Conditions":
+								{
+									"Set": ["Player = [x]"]
+								},
+							"AppraisalVariables":
+								{
+									"AppraisalVariables": [
+										{
+											"Name": "Desirability",
+											"Value": 3,
+											"Target": "-"
+										}, 
+										{
+											"Name": "Praiseworthiness",
+											"Value": 5,
+											"Target": "-"
+										}]
+								}
+						}, 
+						{
+							"EventName": "Event(Action-End, [x], Speak(*, *, Lie, *), *)",
+							"Conditions":
+								{
+									"Set": ["Player = [x]"]
+								},
+							"AppraisalVariables":
+								{
+									"AppraisalVariables": [
+										{
+											"Name": "Desirability",
+											"Value": -3,
+											"Target": "-"
+										}, 
+										{
+											"Name": "Praiseworthiness",
+											"Value": -5,
+											"Target": "-"
+										}]
+								}
+						}, 
+						{
+							"EventName": "Event(Action-End, [x], Speak(*, *, *, Aggro), *)",
+							"Conditions":
+								{
+									"Set": ["Player = [x]"]
+								},
+							"AppraisalVariables":
+								{
+									"AppraisalVariables": [
+										{
+											"Name": "Desirability",
+											"Value": -5,
+											"Target": "-"
+										}, 
+										{
+											"Name": "Praiseworthiness",
+											"Value": -5,
+											"Target": "-"
+										}]
+								}
+						}, 
+						{
+							"EventName": "Event(Action-End, [x], Speak(*, *, *, Calm), *)",
+							"Conditions":
+								{
+									"Set": ["Player = [x]"]
+								},
+							"AppraisalVariables":
+								{
+									"AppraisalVariables": [
+										{
+											"Name": "Desirability",
+											"Value": 3,
+											"Target": "-"
+										}, 
+										{
+											"Name": "Praiseworthiness",
+											"Value": 5,
+											"Target": "-"
+										}]
+								}
+						}, 
+						{
+							"EventName": "Event(Action-End, [x], Speak(*, *, *, Indifference), *)",
+							"Conditions":
+								{
+									"Set": ["Player = [x]"]
+								},
+							"AppraisalVariables":
+								{
+									"AppraisalVariables": [
+										{
+											"Name": "Desirability",
+											"Value": -2,
+											"Target": "-"
+										}]
+								}
+						}, 
+						{
+							"EventName": "Event(Action-End, *, *, *)",
+							"Conditions":
+								{
+									"Set": []
+								},
+							"AppraisalVariables":
+								{
+									"AppraisalVariables": [
+										{
+											"Name": "Desirability",
+											"Value": 5,
+											"Target": "SELF"
+										}]
+								}
+						}]
+				}
+		},
+	"types": [
+		{
+			"TypeId": 0,
+			"ClassName": "EmotionalAppraisal.EmotionalAppraisalAsset, EmotionalAppraisal, Version=1.4.1.0, Culture=neutral, PublicKeyToken=null"
+		}]
+},
+"EmotionalDecisionMakingAsset", 
+{
+	"root":
+		{
+			"classId": 0,
+			"ActionTendencies": [
+				{
+					"Action": "Speak([cs], [ns], [m], Bad)",
+					"Target": "[x]",
+					"Layer": "-",
+					"Conditions":
+						{
+							"Set": ["ValidDialogue([cs], [ns], [m], Bad) = True", "DialogueState([x]) = [cs]", "Mood(Self) < -6"]
+						},
+					"Priority": 1
+				}, 
+				{
+					"Action": "Speak([cs], [ns], [m], Good)",
+					"Target": "[x]",
+					"Layer": "-",
+					"Conditions":
+						{
+							"Set": ["ValidDialogue([cs], [ns], [m], Good) = True", "DialogueState([x]) = [cs]", "Mood(Self) > 6"]
+						},
+					"Priority": 1
+				}, 
+				{
+					"Action": "Speak([cs], [ns], Heaven, [s])",
+					"Target": "[x]",
+					"Layer": "-",
+					"Conditions":
+						{
+							"Set": ["ValidDialogue([cs], [ns], Heaven, [s]) = True", "DialogueState([x]) = [cs]", "SI([x]) >= 10"]
+						},
+					"Priority": 2
+				}, 
+				{
+					"Action": "Disconnect",
+					"Target": "-",
+					"Layer": "-",
+					"Conditions":
+						{
+							"Set": ["DialogueState(Player) = End"]
+						},
+					"Priority": 0
+				}, 
+				{
+					"Action": "Speak([cs], [ns], [m], Neutral)",
+					"Target": "[x]",
+					"Layer": "-",
+					"Conditions":
+						{
+							"Set": ["ValidDialogue([cs], [ns], [m], Neutral) = True", "DialogueState([x]) = [cs]"]
+						},
+					"Priority": 0
+				}, 
+				{
+					"Action": "Speak([cs], [ns], [m], Luck)",
+					"Target": "[x]",
+					"Layer": "-",
+					"Conditions":
+						{
+							"Set": ["ValidDialogue([cs], [ns], [m], Luck) = True", "DialogueState([x]) = [cs]"]
+						},
+					"Priority": 3
+				}, 
+				{
+					"Action": "Speak([cs], [ns], [m], [s])",
+					"Target": "[x]",
+					"Layer": "-",
+					"Conditions":
+						{
+							"Set": ["DialogueState([x]) = [cs]", "Has(Floor) = SELF", "Has(Floor) = Player", "ValidDialogue([cs], [ns], [m], [s]) = True"]
+						},
+					"Priority": 1
+				}]
+		},
+	"types": [
+		{
+			"TypeId": 0,
+			"ClassName": "EmotionalDecisionMaking.EmotionalDecisionMakingAsset, EmotionalDecisionMaking, Version=1.2.0.0, Culture=neutral, PublicKeyToken=null"
+		}]
+},
+"SocialImportanceAsset", 
+{
+	"root":
+		{
+			"classId": 0,
+			"AttributionRules": [
+				{
+					"RuleName": "Base",
+					"Target": "[x]",
+					"Value": 5,
+					"Conditions":
+						{
+							"Set": ["Player = [x]"]
+						}
+				}, 
+				{
+					"RuleName": "Niceness",
+					"Target": "[x]",
+					"Value": 2,
+					"Conditions":
+						{
+							"Set": ["Is(Nice) = True"]
+						}
+				}, 
+				{
+					"RuleName": "Kittens",
+					"Target": "[x]",
+					"Value": 10,
+					"Conditions":
+						{
+							"Set": ["EventId(Action-End, [x], Speak([cs], [ns], Kittens, [s]), SELF) = [id]"]
+						}
+				}, 
+				{
+					"RuleName": "Good Mood",
+					"Target": "[x]",
+					"Value": 2,
+					"Conditions":
+						{
+							"Set": ["Mood(SELF) > 5"]
+						}
+				}, 
+				{
+					"RuleName": "Bad Mood",
+					"Target": "[x]",
+					"Value": -2,
+					"Conditions":
+						{
+							"Set": ["Mood(SELF) < -5"]
+						}
+				}, 
+				{
+					"RuleName": "Best Deed",
+					"Target": "[x]",
+					"Value": 6,
+					"Conditions":
+						{
+							"Set": ["EventId(Action-End, [x], Speak([cs], [ns], BestDeed, [s]), SELF) = [id]"]
+						}
+				}, 
+				{
+					"RuleName": "Good Deed",
+					"Target": "[x]",
+					"Value": 4,
+					"Conditions":
+						{
+							"Set": ["EventId(Action-End, [x], Speak([cs], [ns], GoodDeed, [s]), SELF) = [id]"]
+						}
+				}, 
+				{
+					"RuleName": "Bad Deed",
+					"Target": "[x]",
+					"Value": -3,
+					"Conditions":
+						{
+							"Set": ["EventId(Action-End, [x], Speak([cs], [ns], BadDeed, [s]), SELF) = [id]"]
+						}
+				}, 
+				{
+					"RuleName": "Worst Deed",
+					"Target": "[x]",
+					"Value": -5,
+					"Conditions":
+						{
+							"Set": ["EventId(Action-End, [x], Speak([cs], [ns], WorstDeed, [s]), SELF) = [id]"]
+						}
+				}, 
+				{
+					"RuleName": "Lying",
+					"Target": "[x]",
+					"Value": -2,
+					"Conditions":
+						{
+							"Set": ["EventId(Action-End, [x], Speak([cs], [ns], Lie, [s]), SELF) = [id]"]
+						}
+				}]
+		},
+	"types": [
+		{
+			"TypeId": 0,
+			"ClassName": "SocialImportance.SocialImportanceAsset, SocialImportance, Version=1.5.0.0, Culture=neutral, PublicKeyToken=null"
+		}]
+},
+"CommeillFautAsset", 
+{
+	"root":
+		{
+			"classId": 0,
+			"SocialExchanges": []
+		},
+	"types": [
+		{
+			"TypeId": 0,
+			"ClassName": "CommeillFaut.CommeillFautAsset, CommeillFaut, Version=1.7.0.0, Culture=neutral, PublicKeyToken=null"
+		}]
+}
+]
