@@ -433,9 +433,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89bc2f51c2c52d749a02fa1756dabc4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rootFolder: Purgatory
-  scenarioName: purgatoryScenario
-  storageName: purgatoryStorage
+  rootFolder: SingleCharacter
+  scenarioName: scenario
+  storageName: storage
   DialogueButtonPrefab: {fileID: 114404134787268266, guid: 1f0d2d8e21b7fd1439de5b3ec8e28aa4,
     type: 3}
   initialCanvas: {fileID: 1222560837}
