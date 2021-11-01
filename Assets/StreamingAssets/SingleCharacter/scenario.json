@@ -185,7 +185,7 @@
 										{
 											"PropertyName": "DialogueState([s])",
 											"NewValue": "[ns]",
-											"ObserverAgent": "Player"
+											"ObserverAgent": "[s]"
 										}]
 								}]
 						},
