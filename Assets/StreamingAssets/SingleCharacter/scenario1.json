@@ -1,0 +1,248 @@
+{
+	"root":
+		{
+			"classId": 0,
+			"ScenarioName": "Example",
+			"Description": "A short conversation between the Player and a Character named Charlie. Charlie discovers that there is a major conspiracy within the company he works in. ",
+			"Dialogues": [
+				{
+					"CurrentState": "GreetingResponse",
+					"NextState": "Movie",
+					"Meaning": "-",
+					"Style": "-",
+					"Utterance": "I'm good but I'm bored",
+					"UtteranceId": "TTS-121EA1193F0E41DF69D0431B61F0D123"
+				}, 
+				{
+					"CurrentState": "Greeting",
+					"NextState": "GreetingResponse",
+					"Meaning": "-",
+					"Style": "Polite",
+					"Utterance": "Hi, nice to meet you, how are you?",
+					"UtteranceId": "TTS-58BFB8FF611ED6171727CD753BEFB60D"
+				}, 
+				{
+					"CurrentState": "Movie",
+					"NextState": "MovieResponse",
+					"Meaning": "-",
+					"Style": "Question",
+					"Utterance": "What's your favorite movie?",
+					"UtteranceId": "TTS-65896BE92AAB171BA12BFAE49548CB05"
+				}, 
+				{
+					"CurrentState": "MovieResponse",
+					"NextState": "Love",
+					"Meaning": "-",
+					"Style": "-",
+					"Utterance": "My favorite movie is Good Will Hunting",
+					"UtteranceId": "TTS-45E49D55113A5C9D2366FC0EF5FBA6F2"
+				}, 
+				{
+					"CurrentState": "Love",
+					"NextState": "LoveResponse",
+					"Meaning": "-",
+					"Style": "Sad",
+					"Utterance": "I hate you",
+					"UtteranceId": "TTS-427CFCF3EC4976E13E28F977FB791473"
+				}, 
+				{
+					"CurrentState": "FavoriteFood",
+					"NextState": "GreetingResponse",
+					"Meaning": "-",
+					"Style": "-",
+					"Utterance": "My favorite food is pizza",
+					"UtteranceId": "TTS-E4C17210EA8F0D6F3B32BD8A0D808A59"
+				}, 
+				{
+					"CurrentState": "GreetingResponse",
+					"NextState": "Love",
+					"Meaning": "-",
+					"Style": "-",
+					"Utterance": "There's something I need to tell you",
+					"UtteranceId": "TTS-308D3CB5AAB7EBA8D06D732CB85F711A"
+				}, 
+				{
+					"CurrentState": "Food",
+					"NextState": "FavoriteFood",
+					"Meaning": "-",
+					"Style": "-",
+					"Utterance": "What is your favorite food?",
+					"UtteranceId": "TTS-47B01419DBD6E30449D190763AB71F27"
+				}, 
+				{
+					"CurrentState": "GreetingResponse",
+					"NextState": "Food",
+					"Meaning": "-",
+					"Style": "-",
+					"Utterance": "I'm good, but I'm hungry...",
+					"UtteranceId": "TTS-3539BDAAE93C8098D133E01812136B2B"
+				}, 
+				{
+					"CurrentState": "Food",
+					"NextState": "FavoriteFood",
+					"Meaning": "-",
+					"Style": "-",
+					"Utterance": "What is your favorite food?",
+					"UtteranceId": "TTS-47B01419DBD6E30449D190763AB71F27"
+				}, 
+				{
+					"CurrentState": "Greeting",
+					"NextState": "GreetingResponse",
+					"Meaning": "-",
+					"Style": "Rude",
+					"Utterance": "Hiiii, what's up?",
+					"UtteranceId": "TTS-7858F9043218E2D8ABA0260F6F37922D"
+				}, 
+				{
+					"CurrentState": "FavoriteFood",
+					"NextState": "GreetingResponse",
+					"Meaning": "-",
+					"Style": "-",
+					"Utterance": "My favorite food is sushi",
+					"UtteranceId": "TTS-10B5330D673870CAA37AD90FD8908A68"
+				}, 
+				{
+					"CurrentState": "Love",
+					"NextState": "LoveResponse",
+					"Meaning": "-",
+					"Style": "Polite",
+					"Utterance": "OMG I love you",
+					"UtteranceId": "TTS-06030E89F45CFD814A130DC57A0976A4"
+				}],
+			"Characters": [
+				{
+					"KnowledgeBase":
+						{
+							"Perspective": "Stacy",
+							"Knowledge":
+								{
+									"SELF":
+										{
+											"Has(Floor)": "Stacy, 1",
+											"DialogueState(Zach)": "Greeting, 1",
+											"AM(Stacy)": "True, 1",
+											"CloseFriends(Player)": "False, 1",
+											"Is(park, Location)": "True, 1"
+										}
+								}
+						},
+					"BodyName": "Male",
+					"VoiceName": "Male",
+					"EmotionalState":
+						{
+							"Mood": 4,
+							"initialTick": 0,
+							"EmotionalPool": [],
+							"AppraisalConfiguration":
+								{
+									"HalfLifeDecayConstant": 0.5,
+									"EmotionInfluenceOnMoodFactor": 0.3,
+									"MoodInfluenceOnEmotionFactor": 0.3,
+									"MinimumMoodValueForInfluencingEmotions": 0.5,
+									"EmotionalHalfLifeDecayTime": 15,
+									"MoodHalfLifeDecayTime": 60
+								}
+						},
+					"AutobiographicMemory":
+						{
+							"Tick": 0,
+							"records": []
+						},
+					"OtherAgents":
+						{
+							"dictionary": []
+						},
+					"Goals": [
+						{
+							"Name": "Survive",
+							"Significance": 5,
+							"Likelihood": 0.5
+						}]
+				}, 
+				{
+					"KnowledgeBase":
+						{
+							"Perspective": "Zach",
+							"Knowledge":
+								{
+									"SELF":
+										{
+											"Has(Floor)": "Charlie, 1",
+											"DialogueState(Charlie)": "Start, 1"
+										}
+								}
+						},
+					"BodyName": null,
+					"VoiceName": null,
+					"EmotionalState":
+						{
+							"Mood": -3,
+							"initialTick": 0,
+							"EmotionalPool": [],
+							"AppraisalConfiguration":
+								{
+									"HalfLifeDecayConstant": 0.5,
+									"EmotionInfluenceOnMoodFactor": 0.3,
+									"MoodInfluenceOnEmotionFactor": 0.3,
+									"MinimumMoodValueForInfluencingEmotions": 0.5,
+									"EmotionalHalfLifeDecayTime": 15,
+									"MoodHalfLifeDecayTime": 60
+								}
+						},
+					"AutobiographicMemory":
+						{
+							"Tick": 0,
+							"records": []
+						},
+					"OtherAgents":
+						{
+							"dictionary": []
+						},
+					"Goals": [
+						{
+							"Name": "Survive",
+							"Significance": 5,
+							"Likelihood": 0.2
+						}]
+				}],
+			"WorldModel":
+				{
+					"Effects":
+						{
+							"dictionary": [
+								{
+									"key": "Event(Action-End, [s], Speak(*, [ns], *, *), [t])",
+									"value": [
+										{
+											"PropertyName": "DialogueState([s])",
+											"NewValue": "[ns]",
+											"ObserverAgent": "[t]"
+										}, 
+										{
+											"PropertyName": "Has(Floor)",
+											"NewValue": "[t]",
+											"ObserverAgent": "*"
+										}, 
+										{
+											"PropertyName": "DialogueState([s])",
+											"NewValue": "[ns]",
+											"ObserverAgent": "Player"
+										}]
+								}]
+						},
+					"Priorities":
+						{
+							"dictionary": [
+								{
+									"key": "Event(Action-End, [s], Speak(*, [ns], *, *), [t])",
+									"value": 1
+								}]
+						}
+				}
+		},
+	"types": [
+		{
+			"TypeId": 0,
+			"ClassName": "IntegratedAuthoringTool.IntegratedAuthoringToolAsset, IntegratedAuthoringTool, Version=1.7.0.0, Culture=neutral, PublicKeyToken=null"
+		}]
+}

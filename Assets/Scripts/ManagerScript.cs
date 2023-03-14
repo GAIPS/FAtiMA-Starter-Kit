@@ -174,7 +174,7 @@ public class ManagerScript : MonoBehaviour
 
         foreach (var agent in otherRPCsList)
         {
-            // Initializing textual for each different character
+            // Initializing text for each different character
             var charName = agent.CharacterName.ToString();
             var rand = UnityEngine.Random.Range(0, CharacterBodies.Count);
             nameToBody.Add(charName, CharacterBodies[rand]);
